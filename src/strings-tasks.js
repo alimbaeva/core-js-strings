@@ -240,6 +240,7 @@ function startsWith(str, substr) {
  * @example:
  *   endsWith('Hello World', 'World') => true
  *   endsWith('Hello World', 'Hello') => false
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
  */
 function endsWith(str, substr) {
   return str.endsWith(substr);
@@ -257,9 +258,13 @@ function endsWith(str, substr) {
  *   formatTime(1, 15) => "01:15"
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  const minutesStr = minutes.toString().padStart(2, '0');
+  const secondsStr = seconds.toString().padStart(2, '0');
+
+  return `${minutesStr}:${secondsStr}`;
 }
 
 /**
@@ -271,9 +276,12 @@ function formatTime(/* minutes, seconds */) {
  * @example:
  *   reverseString('abcdef') => 'fedcba'
  *   reverseString('12345') => '54321'
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 /**
@@ -286,9 +294,18 @@ function reverseString(/* str */) {
  *   orderAlphabetically('webmaster') => 'abeemrstw'
  *   orderAlphabetically('textbook') => 'bekoottx'
  *   orderAlphabetically('abc123xyz') => '123abcxyz'
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharCode
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
  */
-function orderAlphabetically(/* str */) {
-  throw new Error('Not implemented');
+function orderAlphabetically(str) {
+  // eslint-disable-next-line no-undef
+  return str
+    .split('')
+    .map((char) => char.charCodeAt())
+    .sort((a, b) => a - b)
+    .map((code) => String.fromCharCode(code))
+    .join('');
 }
 
 /**
@@ -303,8 +320,8 @@ function orderAlphabetically(/* str */) {
  *   containsSubstring('JavaScript is Fun', 'Python') => false
  *   containsSubstring('12345', '34') => true
  */
-function containsSubstring(/* str, substring */) {
-  throw new Error('Not implemented');
+function containsSubstring(str, substring) {
+  return str.indexOf(substring) !== -1;
 }
 
 /**
@@ -338,8 +355,15 @@ function countVowels(/* str */) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const newStr = str.replace(/[^a-zA-Z0-9]/g, '').toLocaleLowerCase();
+  const word = newStr
+    .split('')
+    .splice(0, Math.ceil(newStr.length / 2))
+    .reverse()
+    .join('');
+
+  return newStr.indexOf(word) !== -1;
 }
 
 /**
@@ -353,9 +377,15 @@ function isPalindrome(/* str */) {
  *   findLongestWord('The quick brown fox') => 'quick'
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  if (sentence.length === 0) return '';
+  const word = sentence.split(' ').reduce((longest, current) => {
+    return current.length > longest.length ? current : longest;
+  });
+
+  return word;
 }
 
 /**
@@ -368,8 +398,11 @@ function findLongestWord(/* sentence */) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  return str
+    .split(' ')
+    .map((word) => word.split('').reverse().join(''))
+    .join(' ');
 }
 
 /**
@@ -383,8 +416,19 @@ function reverseWords(/* str */) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  return str
+    .split('')
+    .map((char) => {
+      if (char === char.toUpperCase()) {
+        return char.toLowerCase();
+      }
+      if (char === char.toLowerCase()) {
+        return char.toUpperCase();
+      }
+      return char;
+    })
+    .join('');
 }
 
 /**
@@ -400,8 +444,8 @@ function invertCase(/* str */) {
  *   getStringFromTemplate('John','Doe') => 'Hello, John Doe!'
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -413,9 +457,10 @@ function getStringFromTemplate(/* firstName, lastName */) {
  * @example
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  return value.substring(7, value.length - 1);
 }
 
 /**
@@ -428,9 +473,10 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<div>') => 'div'
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.substring(1, str.length - 1);
 }
 
 /**
@@ -448,8 +494,8 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
