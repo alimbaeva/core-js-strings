@@ -19,8 +19,9 @@
  *   getStringLength(null) => 0
  *   getStringLength(undefined) => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  if (value === null || value === undefined) return 0;
+  return value.length;
 }
 
 /**
@@ -36,9 +37,11 @@ function getStringLength(/* value */) {
  *   isString({}) => false
  *   isString('test') => true
  *   isString(new String('test')) => true
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return typeof value === 'string' || value instanceof String;
 }
 
 /**
@@ -52,9 +55,10 @@ function isString(/* value */) {
  *   concatenateStrings('aa', 'bb') => 'aabb'
  *   concatenateStrings('aa', '') => 'aa'.
  *   concatenateStrings('', 'bb') => 'bb'
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
  */
-function concatenateStrings(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function concatenateStrings(value1, value2) {
+  return value1.concat(value2);
 }
 
 /**
@@ -67,9 +71,10 @@ function concatenateStrings(/* value1, value2 */) {
  *   getFirstChar('John Doe') => 'J'
  *   getFirstChar('cat') => 'c'
  *   getFirstChar('') => ''
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charAt
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value.charAt(0);
 }
 
 /**
@@ -82,9 +87,11 @@ function getFirstChar(/* value */) {
  *   removeLeadingAndTrailingWhitespaces('  Abracadabra') => 'Abracadabra'
  *   removeLeadingAndTrailingWhitespaces('cat ') => 'cat'
  *   removeLeadingAndTrailingWhitespaces('\t\t\tHello, World! ') => 'Hello, World!'
+ * value.replace(/^\s+|\s+$/g, '')
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
 }
 
 /**
@@ -97,9 +104,11 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   removeLeadingWhitespaces('  Abracadabra') => 'Abracadabra'
  *   removeLeadingWhitespaces('cat ') => 'cat '
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
+ * value.replace(/^\s+/, '')
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimStart
  */
-function removeLeadingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingWhitespaces(value) {
+  return value.trimStart();
 }
 
 /**
@@ -112,9 +121,11 @@ function removeLeadingWhitespaces(/* value */) {
  *   removeTrailingWhitespaces('  Abracadabra') => '  Abracadabra'
  *   removeTrailingWhitespaces('cat ') => 'cat'
  *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
+ * value.replace(/\s+$/, '')
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimEnd
  */
-function removeTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeTrailingWhitespaces(value) {
+  return value.trimEnd();
 }
 
 /**
@@ -129,9 +140,12 @@ function removeTrailingWhitespaces(/* value */) {
  *   repeatString('cat', 3) => 'catcatcat'
  *   repeatString('', 3) => ''
  *   repeatString('abc', -2) => ''
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
  */
-function repeatString(/* str, times */) {
-  throw new Error('Not implemented');
+function repeatString(str, times) {
+  if (times < 0) return '';
+  return str.repeat(times);
 }
 
 /**
@@ -145,9 +159,14 @@ function repeatString(/* str, times */) {
  *   removeFirstOccurrences('To be or not to be', 'be') => 'To  or not to be'.
  *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  const indStr = str.indexOf(value);
+  if (indStr === -1) return str;
+  const res = str.slice(0, indStr) + str.slice(indStr + value.length);
+  return res;
 }
 
 /**
@@ -161,9 +180,15 @@ function removeFirstOccurrences(/* str, value */) {
  *   removeLastOccurrences('To be or not to be', 'be') => 'To be or not to '.
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/lastIndexOf
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice
+ * link https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  const indStr = str.lastIndexOf(value);
+  if (indStr === -1) return str;
+  const res = str.slice(0, indStr) + str.slice(indStr + value.length);
+  return res;
 }
 
 /**
@@ -177,9 +202,16 @@ function removeLastOccurrences(/* str, value */) {
  *   sumOfCodes('12345') => 255 (49 + 50 + 51 + 52 + 53 = 255)
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt
  */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str) {
+  let sum = 0;
+  if (str === undefined || str === null) return 0;
+  for (let i = 0; i < str.length; i += 1) {
+    sum += str.charCodeAt(i);
+  }
+
+  return sum;
 }
 
 /**
@@ -192,9 +224,10 @@ function sumOfCodes(/* str */) {
  * @example:
  *   startsWith('Hello World', 'World') => false
  *   startsWith('Hello World', 'Hello') => true
+ * link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith
  */
-function startsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function startsWith(str, substr) {
+  return str.startsWith(substr);
 }
 
 /**
@@ -208,8 +241,8 @@ function startsWith(/* str, substr */) {
  *   endsWith('Hello World', 'World') => true
  *   endsWith('Hello World', 'Hello') => false
  */
-function endsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function endsWith(str, substr) {
+  return str.endsWith(substr);
 }
 
 /**
